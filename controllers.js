@@ -47,18 +47,15 @@ module.exports = {
         });
         
     },
-    //get User 
-    getUser:function(id,res){
+    //get all User 
+    getAllUser:function(res){
         con.connect(function(err) {
             if (err) throw err;
-            if (id.id) {
-                console.log(id);
-                var get_data = 'SELECT * FROM users WHERE id = ?';
-                con.query(get_data, [id.id], function (err, result) {
+                var get_data = 'SELECT * FROM users ';
+                con.query(get_data, function (err, result) {
                     if (err) throw err;
                     res.send(result)
                   });
-            }
         });
     }
 

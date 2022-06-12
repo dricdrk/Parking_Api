@@ -20,6 +20,7 @@ app.post('/parking', (req, res) => {
     console.log(req)
     res.send(req.body)
 });
+//create user 
 app.post('/user', (req, res) => {
     user = {
         name:req.body.name,
@@ -30,10 +31,15 @@ app.post('/user', (req, res) => {
     let data = controllers.createUser(user,res);
     // res.send(data)
 });
-
+//get one user 
 app.get('/user/:id', (req, res) => {
     
     controllers.getUser(req.params,res);
+});
+//get all users
+app.get('/users', (req, res) => {
+    
+    controllers.getAllUser(res);
 });
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));

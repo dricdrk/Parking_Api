@@ -47,6 +47,20 @@ module.exports = {
         });
         
     },
+    //get  User 
+    getUser:function(id,res){
+        if (id.id) {
+            con.connect(function(err) {
+                if (err) throw err;
+                    var get_data = 'SELECT * FROM users WHERE id = ?';
+                    con.query(get_data, id.id, function (err, result) {
+                        if (err) throw err;
+                        res.send(result)
+                      });
+                });
+        }
+       
+    },
     //get all User 
     getAllUser:function(res){
         con.connect(function(err) {
@@ -57,6 +71,37 @@ module.exports = {
                     res.send(result)
                   });
         });
-    }
+    },
+// update user data 
+    updateUser:function(data,res){
+        con.connect(function(err) {
+            if (err) throw err;
+            var sql = "UPDATE customers SET ? WHERE id = ?";
+            con.query(sql,data,id , function (err, result) {
+              if (err) throw err;
+              console.log(result.affectedRows + " record(s) updated");
+            });
+          });
+    },
+//delete User 
+    deleteUser:function(id,res){
+        if (id.id) {
+            con.connect(function(err) {
+                if (err) throw err;
+                    var delete_data = 'DELETE FROM users WHERE id = ?';
+                    con.query(delete_data, id.id, function (err, result) {
+                        if (err) throw err;
+                        res.statusCode=202
+                        data = {
+                            result,
+                            "message":"you delete user successfully",
+                            "status code ":res.statusCode
+                        }
+                        res.send(data)
+                      });
+                });
+        }
+       
+    },
 
 }

@@ -41,15 +41,13 @@ app.get('/users', (req, res) => {
     controllers.getAllUser(res);
 });
 
-app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
-
 //update users
 app.put('/users', (req, res) => {
     controllers.updateUser(res);
 });
 //delete users
-app.delete('/users', (req, res) => {
-    controllers.deleteUser(req,res);
+app.delete('/user/:id', (req, res) => {
+    controllers.deleteUser(req.params,res);
 });
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));

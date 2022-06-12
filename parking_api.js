@@ -1,4 +1,5 @@
-const controllers = require('./controllers');
+const usercontrollers = require('./controllers');
+const placecontroller = require('./controllers/placesControllers')
 const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -33,27 +34,27 @@ app.post('/parking', (req, res) => {
 //create user 
 app.post('/user', (req, res) => {
     user_data(req);
-    controllers.createUser(user,res);
+    usercontrollers.createUser(user,res);
 });
 
 //get one user 
 app.get('/user/:id', (req, res) => {
-    controllers.getUser(req.params,res);
+    usercontrollers.getUser(req.params,res);
 });
 
 //get all users
 app.get('/users', (req, res) => {
-    controllers.getAllUser(res);
+    usercontrollers.getAllUser(res);
 });
 
 //update users
 app.put('/user/:id', (req, res) => {
     user_data(req);
-    controllers.updateUser(user,req.params,res);
+    usercontrollers.updateUser(user,req.params,res);
 });
 //delete users
 app.delete('/user/:id', (req, res) => {
-    controllers.deleteUser(req.params,res);
+    usercontrollers.deleteUser(req.params,res);
 });
 // reservation 
 reservation_date = function (req){
@@ -66,26 +67,26 @@ reservation_date = function (req){
 
 // create place 
 app.post('/places', (req, res) => {
-    controllers.createPlace(req.body.place_number,res);
+    placecontroller.createPlace(req.body,res);
 });
 
 // get all place
 app.get('/places', (req, res) => {
-    controllers.getAllPlace(req.params,res);
+    placecontroller.getAllPlace(req.params,res);
 });
 // get one place 
 app.get('/places/:id', (req, res) => {
-    controllers.getPlace(req.body.place_number,res);
+    placecontroller.getPlace(req.params,res);
 });
 
 // update all place  
 app.put('/places', (req, res) => {
-    controllers.getAllPlace(req.body.place_number,res);
+    placecontroller.getAllPlace(req.body.place_number,res);
 });
 
 //delete place 
 app.delete('/user/:id', (req, res) => {
-    controllers.deletePlace(req.params,res);
+    placecontroller.deletePlace(req.params,res);
 });
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));

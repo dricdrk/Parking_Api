@@ -48,15 +48,14 @@ module.exports = {
         
     },
     //get User 
-    getUser:function(user,res){
+    getUser:function(id,res){
         con.connect(function(err) {
             if (err) throw err;
-            if (user.id) {
-
-                var get_data = 'SELECT * FROM customers WHERE address = ?';
-                con.query(get_data, [user.id], function (err, result) {
+            if (id.id) {
+                console.log(id);
+                var get_data = 'SELECT * FROM users WHERE id = ?';
+                con.query(get_data, [id.id], function (err, result) {
                     if (err) throw err;
-                    console.log(result);
                     res.send(result)
                   });
             }

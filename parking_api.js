@@ -31,4 +31,9 @@ app.post('/user', (req, res) => {
     // res.send(data)
 });
 
+app.get('/user/:id', (req, res) => {
+    
+    controllers.getUser(req.params,res);
+});
+
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));

@@ -72,7 +72,7 @@ app.post('/places', (req, res) => {
 
 // get all place
 app.get('/places', (req, res) => {
-    placecontroller.getAllPlace(req.params,res);
+    placecontroller.getAllPlace(req,res);
 });
 // get one place 
 app.get('/places/:id', (req, res) => {

@@ -74,5 +74,34 @@ module.exports = {
                     });
             }
            
+    },
+    getAllPlace:function(req,res){
+        con.connect(function(err) {
+            if (err) {
+                res.statusCode=502
+                        data = {
+                            'message': "error to connect database ",
+                            'status':   res.statusCode ,
+                            'error' :    err            
+                        }
+                        res.send(data);
+                        throw err
+            };
+                var get_data = 'SELECT * FROM places ';
+                con.query(get_data, function (err, result) {
+                    if (err) {
+                        res.statusCode=502
+                        data = {
+                            'message': "error to execute your request  ",
+                            'status':   res.statusCode ,
+                            'error' :    err            
+                        }
+                        res.send(data);
+                        throw err
+                    };
+                    res.send(result)
+                  });
+        });
+
     }
 }

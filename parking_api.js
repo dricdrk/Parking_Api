@@ -5,7 +5,6 @@ const cors = require('cors');
 const app = express();
 const port = 3001;
 
-
 // Where we will keep books
 let parking = [];
 let user = {};
@@ -36,10 +35,21 @@ app.get('/user/:id', (req, res) => {
     
     controllers.getUser(req.params,res);
 });
+
 //get all users
 app.get('/users', (req, res) => {
-    
     controllers.getAllUser(res);
+});
+
+app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
+
+//update users
+app.put('/users', (req, res) => {
+    controllers.updateUser(res);
+});
+//delete users
+app.delete('/users', (req, res) => {
+    controllers.deleteUser(req,res);
 });
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));

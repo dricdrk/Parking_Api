@@ -1,8 +1,9 @@
+const controllers = require('./controllers');
 const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = 3001;
 
 
 // Where we will keep books
@@ -26,9 +27,8 @@ app.post('/user', (req, res) => {
         mail:req.body.mail,
         phone:req.body.phone
     }
-    
-    console.log(user)
-    res.send(user)
+    let data = controllers.createUser(user,res);
+    // res.send(data)
 });
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));

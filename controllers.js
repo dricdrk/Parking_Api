@@ -1,29 +1,66 @@
 var mysql = require('mysql2');
-
-function createUser(user){
-    let name = user.name;
-    let surname = user.surname;
-    let mail = user.mail;
-    let phone = user.phone;
-
-    con.connect(function(err) {
-        if (err) throw err;
-        var add_user = "INSERT INTO customers (name, surname, mail, phone) VALUES ("+name+", "+surname+", "+mail+", "+phone+")";
-        con.query(add_user, function (err, result) {
-            if (err) throw err;
-            console.log("user create !");
-          });
-      });
-    
+var con = mysql.createConnection({
+    database: 'mydb',
+    host: "localhost",
+    user: "root",
+    password: "SessiHans99#"
+  });
+  //checkif user sendmail
+  function checkIfEmailInString(text) { 
+    var re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+    return re.test(text);
 }
-function get_allUser(user){
-    con.connect(function(err) {
+module.exports = {
+    // Users all methods 
+    //create user
+   createUser:function(user, res){
+        let name = user.name;
+        let surname = user.surname;
+        let mail = user.mail;
+        let phone = user.phone;
+
+        con.connect(function(err) {
             if (err) throw err;
-        con.query("SELECT * FROM users WHERE id = "+user.id+"'", function (err, result) {
-            if (err) throw err;
-              console.log(result);
-              return result
+            // var add_user = "INSERT INTO users (name, surname, mail, phone) VALUES ("+name+", "+surname+", "+mail+", "+phone+")";
+            var add_user = "INSERT INTO users( name , surname , mail ,phone ) VALUES ?";
+            user=[[name,surname,mail,phone]];
+            if (checkIfEmailInString(mail)== false) {
+                let data = {
+                    "message":"give right mail",
+                    "status":500
+                }
+                return res.send(data);
+
+            }
+
+            con.query(add_user,[user], function (err, result) {
+                if (err) throw err;
+                console.log("user create !");
+                let data = {
+                    "message":"user has been create successfully ",
+                    "status":200
+                }
+                console.log(res);
+                res.statusCode =201;
+                return res.send(data);
             });
-          });
+        });
+        
+    },
+    //get User 
+    getUser:function(user,res){
+        con.connect(function(err) {
+            if (err) throw err;
+            if (user.id) {
+
+                var get_data = 'SELECT * FROM customers WHERE address = ?';
+                con.query(get_data, [user.id], function (err, result) {
+                    if (err) throw err;
+                    console.log(result);
+                    res.send(result)
+                  });
+            }
+        });
+    }
 
 }

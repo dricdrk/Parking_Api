@@ -12,6 +12,7 @@ var con = mysql.createConnection({
 }
 module.exports = {
     // Users all methods 
+
     //create user
    createUser:function(user, res){
         let name = user.name;
@@ -21,16 +22,16 @@ module.exports = {
 
         con.connect(function(err) {
             if (err) throw err;
-            // var add_user = "INSERT INTO users (name, surname, mail, phone) VALUES ("+name+", "+surname+", "+mail+", "+phone+")";
+
             var add_user = "INSERT INTO users( name , surname , mail ,phone ) VALUES ?";
             user=[[name,surname,mail,phone]];
+
             if (checkIfEmailInString(mail)== false) {
                 let data = {
                     "message":"give right mail",
                     "status":500
                 }
-                return res.send(data);
-
+            return res.send(data);
             }
 
             con.query(add_user,[user], function (err, result) {
@@ -40,13 +41,13 @@ module.exports = {
                     "message":"user has been create successfully ",
                     "status":200
                 }
-                console.log(res);
                 res.statusCode =201;
                 return res.send(data);
             });
         });
         
     },
+
     //get  User 
     getUser:function(id,res){
         if (id.id) {
@@ -61,6 +62,7 @@ module.exports = {
         }
        
     },
+
     //get all User 
     getAllUser:function(res){
         con.connect(function(err) {
@@ -72,18 +74,37 @@ module.exports = {
                   });
         });
     },
-// update user data 
-    updateUser:function(data,res){
+    
+    // update user data 
+    updateUser:function(data,id,res){
         con.connect(function(err) {
             if (err) throw err;
-            var sql = "UPDATE customers SET ? WHERE id = ?";
-            con.query(sql,data,id , function (err, result) {
-              if (err) throw err;
-              console.log(result.affectedRows + " record(s) updated");
+            
+            var add_user = "UPDATE INTO users( name , surname , mail ,phone ) VALUES ? WHERE id = ?";
+            UpdateData=[[data.name,data.surname,data.mail,data.phone]];
+            if (checkIfEmailInString(data.mail)== false) {
+                let data = {
+                    "message":"give right mail",
+                    "status":400
+                }
+                return res.send(data);
+
+            }
+
+            con.query(add_user,[UpdateData],[id.id], function (err, result) {
+                if (err) throw err;
+                console.log("user create !");
+                let data = {
+                    "message":"user has been update user successfully ",
+                    "status":200
+                }
+                res.statusCode =201;
+                return res.send(data);
             });
-          });
+        });
     },
-//delete User 
+    
+    //delete User 
     deleteUser:function(id,res){
         if (id.id) {
             con.connect(function(err) {

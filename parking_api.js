@@ -85,7 +85,7 @@ app.put('/places', (req, res) => {
 });
 
 //delete place 
-app.delete('/user/:id', (req, res) => {
+app.delete('/places/:id', (req, res) => {
     placecontroller.deletePlace(req.params,res);
 });
 

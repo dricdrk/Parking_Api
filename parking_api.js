@@ -1,5 +1,5 @@
 const usercontrollers = require('./controllers');
-const placecontroller = require('./controllers/placesControllers')
+const placecontroller = require('./controllers/placesControllers');
 const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');

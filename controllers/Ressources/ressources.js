@@ -1,3 +1,17 @@
+var mysql = require('mysql2');
+// const { getAllRessource, getOneRessource } = require('./Ressources/ressources');
+var con = mysql.createConnection({
+    database: 'mydb',
+    host: "localhost",
+    user: "root",
+    password: "SessiHans99#"
+  });
+// utility
+  //checkif user sendmail
+function checkIfEmailInString(text) { 
+    var re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+    return re.test(text);
+}
 module.exports = {
    createRessource:function(data,res,sql_request){
         con.connect(function(err) {
@@ -41,7 +55,7 @@ module.exports = {
                     throw err
                 };
                     var get_data = sql_request;
-                    con.query(get_data, id.id, function (err, result) {
+                    con.query(get_data, data.id, function (err, result) {
                         if (err){
                             res.statusCode=502
                             data = {
@@ -55,6 +69,77 @@ module.exports = {
                         res.send(result)
                       });
                 });
+        } 
+        if(!data.id) {
+            res.statusCode =
+            data = {
+                'message': "this ressource don't exit try with available ressource ",
+                'status':   res.statusCode ,
+                'error' :    err            
+            }
+            res.send(data);
+            throw err;
+             
         }
+    },
+    getAllRessource:function(req,res,sql_request){
+        con.connect(function(err) {
+            if (err) {
+                res.statusCode=502
+                        data = {
+                            'message': "error to connect database ",
+                            'status':   res.statusCode ,
+                            'error' :    err            
+                        }
+                        res.send(data);
+                        throw err
+            };
+                var get_data = sql_request;
+                con.query(get_data, function (err, result) {
+                    if (err) {
+                        res.statusCode=502
+                        data = {
+                            'message': "error to execute your request  ",
+                            'status':   res.statusCode ,
+                            'error' :    err            
+                        }
+                        res.send(data);
+                        throw err
+                    };
+                    res.send(result)
+                  });
+        });
+    },
+    getOneRessource:function(data,res,sql_request){
+        if (data.id) {
+            con.connect(function(err) {
+                if (err) {
+                    res.statusCode=502
+                    data = {
+                        'message': "error to connect database ",
+                        'status':   res.statusCode ,
+                        'error' :    err            
+                    }
+                    res.send(data);
+                    throw err
+                };
+                    var get_data = sql_request;
+                    con.query(get_data, data.id, function (err, result) {
+                        if (err){
+                            res.statusCode=502
+                            data = {
+                                'message': "error to execute your request ",
+                                'status':   res.statusCode ,
+                                'error' :    err            
+                            }
+                             throw err
+                             res.send(data);
+                            };
+                        res.send(result)
+                      });
+                });
+
     }
+    },
+    updateRessource:function(data,res,sql_request){}
 }

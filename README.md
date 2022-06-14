@@ -1,4 +1,7 @@
 # Parking_Api
+<p>
+An api that allows you to manage a parking lot, create new parking spaces, modify their specifications and delete them if you wish. Then receive reservations of parking space etc.. in a word manage your parking with this small application back
+</p>
 # Install this project 
 - Run command ```npm install ``` 
 - config your <h2>.env file </h2>

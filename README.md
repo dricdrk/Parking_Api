@@ -13,6 +13,15 @@
 - Run command ```npm migrate ``` 
 # Run project
 - Run command  ``` npm start ``` 
+# Routes of project 
+```users``` 
+- Methods : GET -  PUT - POST (ATRIBUTES : name , surname , mail , phone ) - DELETED
+
+```places  ``` 
+
+- Methods : GET -  PUT - POST (ATRIBUTES : state ) - DELETED
+ 
+```Reservation ``` 
 
  
 

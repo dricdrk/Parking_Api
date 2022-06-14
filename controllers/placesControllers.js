@@ -1,4 +1,4 @@
-const places = require ('./Ressources/ressources')
+const places = require ('../Ressources/ressources')
 module.exports = {
     // reservedPlace all methods 
 // create ressource function 

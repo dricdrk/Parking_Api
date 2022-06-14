@@ -51,6 +51,9 @@ app.delete('/places/:id', (req, res) => {
 
 /* Users */
 
+app.post('/users', (req, res) => {
+    usercontroller.createUser(req.body,res);
+});
 // get all user
 app.get('/users', (req, res) => {
     usercontroller.getAllUser(req,res);
@@ -62,7 +65,7 @@ app.get('/users/:id', (req, res) => {
 
 // update all user  
 app.put('/users', (req, res) => {
-    usercontroller.getAllUser(req.body.user_number,res);
+    usercontroller.updateUser(req,res);
 });
 
 //delete user 

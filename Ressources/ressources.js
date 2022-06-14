@@ -9,13 +9,23 @@ function checkIfEmailInString(text) {
 module.exports = {
    createRessource:function(data,res,sql_request){
         con.connect(function(err) {
-            let state = data.state;
+            let state = data;
             if (err) throw err;
-    
+            
+            let aar=[];
             var add_reservation = sql_request;
-            let newplace=[[state]];
+            for (const value in data) {
+                if (Object.hasOwnProperty.call(data, value)) {
+                    const element = data[value];
+                    aar.push(element);
+                    console.log(aar)
+                    
+                }
+            }
+            console.log(data);
+            let data_final=[aar];
     
-            con.query(add_reservation,[newplace], function (err, result) {
+            con.query(add_reservation,[data_final], function (err, result) {
                 if (err) {
                     res.statusCode =400;
                     let data = {
@@ -25,9 +35,8 @@ module.exports = {
                     }
                     res.send(data);
                 }
-                console.log("place create !");
                 let data = {
-                    "message":"place has been create successfully ",
+                    "message":"Ressource has been create successfully ",
                     "status":201
                 }
                 res.statusCode =201;
@@ -135,5 +144,41 @@ module.exports = {
 
     }
     },
-    updateRessource:function(data,res,sql_request){}
+    updateRessource:function(data,res,sql_request){
+        con.connect(function(err) {
+            let state = data;
+            if (err) throw err;
+            // arr is array that must contain element provide to object data
+            let aar=[];
+            var add_reservation =`UPDATE users SET users( id, name , surname , mail ,phone ) VALUES ? WHERE id = ?`;
+            for (const value in data) {
+                if (Object.hasOwnProperty.call(data, value)) {
+                    const element = data[value];
+                    aar.push(element);
+                    console.log(aar)
+                    
+                }
+            }
+            console.log(data);
+            let data_final=[aar,data.id];
+    
+            con.query(add_reservation,[data_final], function (err, result) {
+                if (err) {
+                    res.statusCode =400;
+                    let data = {
+                        "message":"Error ",
+                        "error":err,
+                        "status":res.statusCode
+                    }
+                    res.send(data);
+                }
+                let data = {
+                    "message":"Ressource has been create successfully ",
+                    "status":201
+                }
+                res.statusCode =201;
+                return res.send(data);
+            });
+        });
+    }
 }

@@ -8,7 +8,7 @@
     <h6>PASSWORD=your_password</h6>
     <h6>node routes.js</h6>
 # Make migration to create database and table for project
-- Run command ```npm install ``` 
+- Run command ```npm migrate ``` 
 # Run project
 - Run command  ``` npm start ``` 
 

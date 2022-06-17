@@ -15,11 +15,16 @@
 - Run command  ``` npm start ``` 
 # Routes of project 
 ```users``` 
-- Methods : GET -  PUT - POST (ATRIBUTES : name , surname , mail , phone ) - DELETED
+- Methods : 
+    - route : ```/users``` 
+    - Support method by route : GET - PUT - POST -DELETED
+    - Global atribute : name , surname , mail , phone
 
 ```places  ``` 
-
-- Methods : GET -  PUT - POST (ATRIBUTES : state ) - DELETED
+- Methods : 
+    - route : ```/places``` 
+    - Support method by route : GET - PUT - POST -DELETED
+    - Global atribute : state
  
 ```Reservation ``` 
 
